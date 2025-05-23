@@ -17,15 +17,15 @@
             
             <!-- Search Bar -->
             <div class="search-bar">
-                <input type="text" placeholder="Search products...">
-                <button type="submit">Search</button>
+                <input type="text" id="searchInput" placeholder="Search products...">
+                <button type="button" onclick="searchProducts()">Search</button>
             </div>
             
             <!-- Navigation and Cart -->
             <nav class="nav">
                 <ul>
                     <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="cart.html" class="cart-link">🛒 Cart (3)</a></li>
+                    <li><a href="cart.html" class="cart-link">🛒 Cart (<span id="cartCount">0</span>)</a></li>
                 </ul>
             </nav>
         </div>
@@ -38,119 +38,128 @@
             <div class="hero-content">
                 <h2>Welcome to ShopEasy</h2>
                 <p>Discover amazing products at unbeatable prices!</p>
-                <button class="cta-button">Shop Now</button>
-            </div>
-        </section>
-
-        <!-- CATEGORIES SECTION -->
-        <section class="categories">
-            <div class="container">
-                <h2>Shop by Category</h2>
-                <div class="category-grid">
-                    <div class="category-card">
-                        <div class="category-icon">📱</div>
-                        <h3>Electronics</h3>
-                        <p>Latest gadgets and tech</p>
-                    </div>
-                    <div class="category-card">
-                        <div class="category-icon">👕</div>
-                        <h3>Fashion</h3>
-                        <p>Trendy clothing and accessories</p>
-                    </div>
-                    <div class="category-card">
-                        <div class="category-icon">🧸</div>
-                        <h3>Toys</h3>
-                        <p>Fun toys for all ages</p>
-                    </div>
-                    <div class="category-card">
-                        <div class="category-icon">🏠</div>
-                        <h3>Home & Garden</h3>
-                        <p>Everything for your home</p>
-                    </div>
-                </div>
+                <button class="cta-button" onclick="scrollToProducts()">Shop Now</button>
             </div>
         </section>
 
         <!-- PRODUCTS SECTION -->
-        <section class="products">
+        <section class="products" id="productsSection">
             <div class="container">
                 <h2>Featured Products</h2>
-                <div class="product-grid">
+                <div class="product-grid" id="productGrid">
                     <!-- Product 1 -->
-                    <div class="product-card">
+                    <div class="product-card" data-product-id="1">
                         <div class="product-image">
-                            <div class="placeholder-img">📱</div>
+                            <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&h=200&fit=crop" alt="Smartphone Pro" />
                         </div>
                         <div class="product-info">
                             <h3>Smartphone Pro</h3>
-                            <p class="price">$699.99</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="product-description">Latest model with advanced camera and 5G connectivity</p>
+                            <p class="price">₹52,999</p>
+                            <button class="add-to-cart" onclick="addToCart(1, 'Smartphone Pro', 52999, 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=300&h=200&fit=crop')">Add to Cart</button>
                         </div>
                     </div>
                     
                     <!-- Product 2 -->
-                    <div class="product-card">
+                    <div class="product-card" data-product-id="2">
                         <div class="product-image">
-                            <div class="placeholder-img">👕</div>
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=200&fit=crop" alt="Cotton T-Shirt" />
                         </div>
                         <div class="product-info">
                             <h3>Cotton T-Shirt</h3>
-                            <p class="price">$24.99</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="product-description">Premium cotton, comfortable fit, available in multiple colors</p>
+                            <p class="price">₹1,899</p>
+                            <button class="add-to-cart" onclick="addToCart(2, 'Cotton T-Shirt', 1899, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=200&fit=crop')">Add to Cart</button>
                         </div>
                     </div>
                     
                     <!-- Product 3 -->
-                    <div class="product-card">
+                    <div class="product-card" data-product-id="3">
                         <div class="product-image">
-                            <div class="placeholder-img">💻</div>
+                            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&h=200&fit=crop" alt="Gaming Laptop" />
                         </div>
                         <div class="product-info">
                             <h3>Gaming Laptop</h3>
-                            <p class="price">$1,299.99</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="product-description">High-performance laptop for gaming and professional work</p>
+                            <p class="price">₹98,999</p>
+                            <button class="add-to-cart" onclick="addToCart(3, 'Gaming Laptop', 98999, 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&h=200&fit=crop')">Add to Cart</button>
                         </div>
                     </div>
                     
                     <!-- Product 4 -->
-                    <div class="product-card">
+                    <div class="product-card" data-product-id="4">
                         <div class="product-image">
-                            <div class="placeholder-img">🎧</div>
+                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop" alt="Wireless Headphones" />
                         </div>
                         <div class="product-info">
                             <h3>Wireless Headphones</h3>
-                            <p class="price">$149.99</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="product-description">Premium sound quality with active noise cancellation</p>
+                            <p class="price">₹11,399</p>
+                            <button class="add-to-cart" onclick="addToCart(4, 'Wireless Headphones', 11399, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300&h=200&fit=crop')">Add to Cart</button>
                         </div>
                     </div>
                     
                     <!-- Product 5 -->
-                    <div class="product-card">
+                    <div class="product-card" data-product-id="5">
                         <div class="product-image">
-                            <div class="placeholder-img">👗</div>
+                            <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=300&h=200&fit=crop" alt="Summer Dress" />
                         </div>
                         <div class="product-info">
                             <h3>Summer Dress</h3>
-                            <p class="price">$59.99</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <p class="product-description">Elegant floral print dress, perfect for summer occasions</p>
+                            <p class="price">₹4,599</p>
+                            <button class="add-to-cart" onclick="addToCart(5, 'Summer Dress', 4599, 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=300&h=200&fit=crop')">Add to Cart</button>
                         </div>
                     </div>
                     
                     <!-- Product 6 -->
-                    <div class="product-card">
+                    <div class="product-card" data-product-id="6">
                         <div class="product-image">
-                            <div class="placeholder-img">🧸</div>
+                            <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=200&fit=crop" alt="Running Shoes" />
                         </div>
                         <div class="product-info">
-                            <h3>Teddy Bear</h3>
-                            <p class="price">$19.99</p>
-                            <button class="add-to-cart">Add to Cart</button>
+                            <h3>Running Shoes</h3>
+                            <p class="product-description">Comfortable running shoes with advanced cushioning technology</p>
+                            <p class="price">₹7,299</p>
+                            <button class="add-to-cart" onclick="addToCart(6, 'Running Shoes', 7299, 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300&h=200&fit=crop')">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 7 -->
+                    <div class="product-card" data-product-id="7">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=300&h=200&fit=crop" alt="Coffee Maker" />
+                        </div>
+                        <div class="product-info">
+                            <h3>Coffee Maker</h3>
+                            <p class="product-description">Automatic coffee maker with programmable timer and multiple brew options</p>
+                            <p class="price">₹8,999</p>
+                            <button class="add-to-cart" onclick="addToCart(7, 'Coffee Maker', 8999, 'https://images.unsplash.com/photo-1560472355-536de3962603?w=300&h=200&fit=crop')">Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <!-- Product 8 -->
+                    <div class="product-card" data-product-id="8">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=200&fit=crop" alt="Wall Clock" />
+                        </div>
+                        <div class="product-info">
+                            <h3>Wall Clock</h3>
+                            <p class="product-description">Modern minimalist wall clock, perfect for any room</p>
+                            <p class="price">₹2,499</p>
+                            <button class="add-to-cart" onclick="addToCart(8, 'Wall Clock', 2499, 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=200&fit=crop')">Add to Cart</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+
+    <!-- SUCCESS NOTIFICATION -->
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+        <button onclick="closeNotification()" class="close-btn">×</button>
+    </div>
 
     <!-- FOOTER SECTION -->
     <footer class="footer">
@@ -184,5 +193,115 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Shopping cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Update cart count on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+        });
+
+        function addToCart(id, name, price, image) {
+            // Check if item already exists in cart
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: name,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                });
+            }
+            
+            // Save to localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+            
+            // Update cart count
+            updateCartCount();
+            
+            // Show notification
+            showNotification(`${name} added to cart!`);
+            
+            // Add visual feedback to button
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Added!';
+            button.style.background = '#28a745';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '';
+            }, 1000);
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function closeNotification() {
+            document.getElementById('notification').classList.remove('show');
+        }
+
+        function scrollToProducts() {
+            document.getElementById('productsSection').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const productCards = document.querySelectorAll('.product-card');
+            
+            if (searchTerm === '') {
+                // Show all products
+                productCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+                return;
+            }
+            
+            productCards.forEach(card => {
+                const productName = card.querySelector('h3').textContent.toLowerCase();
+                const productDescription = card.querySelector('.product-description').textContent.toLowerCase();
+                
+                if (productName.includes(searchTerm) || productDescription.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Show notification for search results
+            const visibleProducts = Array.from(productCards).filter(card => card.style.display !== 'none').length;
+            showNotification(`Found ${visibleProducts} products matching "${searchTerm}"`);
+        }
+
+        // Search on Enter key press
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchProducts();
+            }
+        });
+    </script>
 </body>
 </html>
