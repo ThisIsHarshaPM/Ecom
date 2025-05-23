@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- HEADER SECTION - Same as homepage -->
+    <!-- HEADER SECTION -->
     <header class="header">
         <div class="container">
             <!-- Logo -->
@@ -25,7 +25,7 @@
             <nav class="nav">
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="cart.html" class="cart-link active">🛒 Cart (3)</a></li>
+                    <li><a href="cart.html" class="cart-link active">🛒 Cart (<span id="cartCount">0</span>)</a></li>
                 </ul>
             </nav>
         </div>
@@ -37,90 +37,10 @@
             <div class="cart-page">
                 <h1>Shopping Cart</h1>
                 
-                <!-- Cart Items -->
-                <div class="cart-content">
-                    <div class="cart-items">
-                        <!-- Cart Item 1 -->
-                        <div class="cart-item">
-                            <div class="item-image">
-                                <div class="placeholder-img">📱</div>
-                            </div>
-                            <div class="item-details">
-                                <h3>Smartphone Pro</h3>
-                                <p class="item-description">Latest model with advanced features</p>
-                            </div>
-                            <div class="item-quantity">
-                                <label>Qty:</label>
-                                <select>
-                                    <option value="1" selected>1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                            <div class="item-price">
-                                <p class="price">$699.99</p>
-                            </div>
-                            <div class="item-actions">
-                                <button class="remove-btn">Remove</button>
-                            </div>
-                        </div>
-
-                        <!-- Cart Item 2 -->
-                        <div class="cart-item">
-                            <div class="item-image">
-                                <div class="placeholder-img">🎧</div>
-                            </div>
-                            <div class="item-details">
-                                <h3>Wireless Headphones</h3>
-                                <p class="item-description">Premium sound quality with noise cancellation</p>
-                            </div>
-                            <div class="item-quantity">
-                                <label>Qty:</label>
-                                <select>
-                                    <option value="1">1</option>
-                                    <option value="2" selected>2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                            <div class="item-price">
-                                <p class="price">$299.98</p>
-                                <p class="unit-price">($149.99 each)</p>
-                            </div>
-                            <div class="item-actions">
-                                <button class="remove-btn">Remove</button>
-                            </div>
-                        </div>
-
-                        <!-- Cart Item 3 -->
-                        <div class="cart-item">
-                            <div class="item-image">
-                                <div class="placeholder-img">👕</div>
-                            </div>
-                            <div class="item-details">
-                                <h3>Cotton T-Shirt</h3>
-                                <p class="item-description">Comfortable 100% cotton, Size: M</p>
-                            </div>
-                            <div class="item-quantity">
-                                <label>Qty:</label>
-                                <select>
-                                    <option value="1" selected>1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
-                            </div>
-                            <div class="item-price">
-                                <p class="price">$24.99</p>
-                            </div>
-                            <div class="item-actions">
-                                <button class="remove-btn">Remove</button>
-                            </div>
-                        </div>
+                <!-- Cart Items Container -->
+                <div class="cart-content" id="cartContent">
+                    <div class="cart-items" id="cartItems">
+                        <!-- Cart items will be populated by JavaScript -->
                     </div>
 
                     <!-- Cart Summary -->
@@ -128,32 +48,32 @@
                         <div class="summary-card">
                             <h2>Order Summary</h2>
                             <div class="summary-row">
-                                <span>Subtotal (4 items):</span>
-                                <span>$1,024.96</span>
+                                <span>Subtotal (<span id="itemCount">0</span> items):</span>
+                                <span id="subtotal">₹0</span>
                             </div>
                             <div class="summary-row">
                                 <span>Shipping:</span>
-                                <span>$9.99</span>
+                                <span id="shipping">₹99</span>
                             </div>
                             <div class="summary-row">
-                                <span>Tax:</span>
-                                <span>$82.00</span>
+                                <span>Tax (18% GST):</span>
+                                <span id="tax">₹0</span>
                             </div>
                             <hr>
                             <div class="summary-row total">
                                 <span><strong>Total:</strong></span>
-                                <span><strong>$1,116.95</strong></span>
+                                <span><strong id="total">₹0</strong></span>
                             </div>
                             <div class="cart-actions">
-                                <button class="continue-shopping">Continue Shopping</button>
-                                <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+                                <button class="continue-shopping" onclick="continueShopping()">Continue Shopping</button>
+                                <button class="checkout-btn" onclick="proceedToCheckout()" id="checkoutBtn">Proceed to Checkout</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Empty Cart Message (hidden by default) -->
-                <div class="empty-cart" style="display: none;">
+                <!-- Empty Cart Message -->
+                <div class="empty-cart" id="emptyCart" style="display: none;">
                     <h2>Your cart is empty</h2>
                     <p>Add some products to get started!</p>
                     <a href="index.html" class="shop-now-btn">Start Shopping</a>
@@ -162,7 +82,13 @@
         </div>
     </main>
 
-    <!-- FOOTER SECTION - Same as homepage -->
+    <!-- SUCCESS NOTIFICATION -->
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+        <button onclick="closeNotification()" class="close-btn">×</button>
+    </div>
+
+    <!-- FOOTER SECTION -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -194,5 +120,154 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // Shopping cart functionality
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            updateCartCount();
+        });
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const emptyCart = document.getElementById('emptyCart');
+            const cartContent = document.getElementById('cartContent');
+
+            if (cart.length === 0) {
+                cartContent.style.display = 'none';
+                emptyCart.style.display = 'block';
+                return;
+            }
+
+            cartContent.style.display = 'grid';
+            emptyCart.style.display = 'none';
+
+            // Generate cart items HTML
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item" data-item-id="${item.id}">
+                    <div class="item-image">
+                        <img src="${item.image}" alt="${item.name}" />
+                    </div>
+                    <div class="item-details">
+                        <h3>${item.name}</h3>
+                        <p class="item-description">Premium quality product with warranty</p>
+                    </div>
+                    <div class="item-quantity">
+                        <label>Qty:</label>
+                        <div class="quantity-controls">
+                            <button onclick="decreaseQuantity(${item.id})" class="qty-btn">-</button>
+                            <span class="qty-display">${item.quantity}</span>
+                            <button onclick="increaseQuantity(${item.id})" class="qty-btn">+</button>
+                        </div>
+                    </div>
+                    <div class="item-price">
+                        <p class="price">₹${(item.price * item.quantity).toLocaleString('en-IN')}</p>
+                        ${item.quantity > 1 ? `<p class="unit-price">(₹${item.price.toLocaleString('en-IN')} each)</p>` : ''}
+                    </div>
+                    <div class="item-actions">
+                        <button class="remove-btn" onclick="removeFromCart(${item.id})">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+
+            updateCartSummary();
+        }
+
+        function updateCartSummary() {
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+            const shipping = subtotal > 0 ? (subtotal >= 1000 ? 0 : 99) : 0;
+            const taxRate = 0.18; // 18% GST
+            const tax = Math.round(subtotal * taxRate);
+            const total = subtotal + shipping + tax;
+
+            document.getElementById('itemCount').textContent = itemCount;
+            document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+            document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : `₹${shipping}`;
+            document.getElementById('tax').textContent = `₹${tax.toLocaleString('en-IN')}`;
+            document.getElementById('total').textContent = `₹${total.toLocaleString('en-IN')}`;
+
+            // Enable/disable checkout button
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            if (cart.length === 0) {
+                checkoutBtn.disabled = true;
+                checkoutBtn.textContent = 'Cart is Empty';
+            } else {
+                checkoutBtn.disabled = false;
+                checkoutBtn.textContent = 'Proceed to Checkout';
+            }
+        }
+
+        function increaseQuantity(itemId) {
+            const item = cart.find(item => item.id === itemId);
+            if (item) {
+                item.quantity += 1;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                updateCartCount();
+                showNotification(`${item.name} quantity increased`);
+            }
+        }
+
+        function decreaseQuantity(itemId) {
+            const item = cart.find(item => item.id === itemId);
+            if (item && item.quantity > 1) {
+                item.quantity -= 1;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                updateCartCount();
+                showNotification(`${item.name} quantity decreased`);
+            }
+        }
+
+        function removeFromCart(itemId) {
+            const itemIndex = cart.findIndex(item => item.id === itemId);
+            if (itemIndex > -1) {
+                const removedItem = cart[itemIndex];
+                cart.splice(itemIndex, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+                updateCartCount();
+                showNotification(`${removedItem.name} removed from cart`);
+            }
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cartCount').textContent = totalItems;
+        }
+
+        function continueShopping() {
+            window.location.href = 'index.html';
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showNotification('Your cart is empty. Add some items first!');
+                return;
+            }
+            window.location.href = 'checkout.html';
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        function closeNotification() {
+            document.getElementById('notification').classList.remove('show');
+        }
+    </script>
 </body>
 </html>
